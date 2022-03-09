@@ -7,8 +7,8 @@ const Accordion = ({ items }) => {
     setActiveIndex(index);
   };
   const counterClick = (counter) => {
-      setCounter(counter);
-  }
+    setCounter(counter);
+  };
   const renderedItems = items.map((item, i) => {
     const active = i === activeIndex ? "active" : "";
     return (
@@ -17,12 +17,12 @@ const Accordion = ({ items }) => {
           <i className="dropdown icon"></i>
           {item.title}
         </div>
-        <div
-          className={`content ${active}`}
-          onClick={() => counterClick(counter++)}
-        >
+        <div className={`content ${active}`}>
           <p>{item.content}</p>
         </div>
+        <button className="button ui" onClick={() => counterClick(counter++)}>
+          Click me
+        </button>
       </React.Fragment>
     );
   });
