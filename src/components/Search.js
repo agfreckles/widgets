@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { getByTitle } from "@testing-library/react";
 
 const Search = () => {
-  const [term, setTerm] = useState("");
+  const [term, setTerm] = useState("pro");
+  //debounced term to help avoid multiple dependencies in useEffect
+  const [debouncedTerm, setDebouncedTerm] = useState(term);
   const [results, setResults] = useState([]);
+
+  useEffect(() => {
+    const timerID = setTimeout(() => {
+      setDebouncedTerm(term);
+    }, 1000);
+    return () => {
+      clearTimeout(timerID);
+    };
+  }, [term]);
   useEffect(() => {
     const search = async () => {
       const { data } = await axios.get("https://en.wikipedia.org/w/api.php", {
@@ -13,15 +23,13 @@ const Search = () => {
           list: "search",
           origin: "*",
           format: "json",
-          srsearch: term,
+          srsearch: debouncedTerm,
         },
       });
       setResults(data.query.search);
     };
-    setTimeout(() => {
-      if (term) search();
-    }, 500);
-  }, [term]);
+    search();
+  }, [debouncedTerm]);
   const renderedResults = results.map(({ title, snippet, pageid }) => {
     return (
       <div key={pageid} className="item">
