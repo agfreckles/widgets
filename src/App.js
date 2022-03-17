@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Accordion from "./components/Accordion";
 import Search from "./components/Search";
 import Dropdown from "./components/Dropdown";
+import Translate from "./components/Translate";
+import axios from "axios";
 
 const items = [
   {
@@ -19,11 +21,26 @@ const options = [
   { label: "Blue color", value: "blue" },
   { label: "Green color", value: "green" },
 ];
+
+const URL = "https://jsonplaceholder.typicode.com/users";
 const App = () => {
   const [showDropDown, setShowDropDown] = useState(true);
   const [selected, setSelected] = useState(options[0]);
+  // const [users, setUsers] = useState([]);
+  // useEffect(() => {
+  //   const getUsers = async () => {
+  //     const {data} = await axios.get(URL,{},{});
+  //     setUsers(data)
+  //   };
+  //   getUsers();
+  // }, []);
+  // const renderedUsers = users.map((user) => {
+  //   return <li key={user.id}>{user.name}</li>;
+  // });
   return (
     <div className="ui container">
+      <br />
+      <Translate />
       <br />
       {/* <Accordion items={items} /> */}
       {/* <Search /> */}
@@ -33,13 +50,14 @@ const App = () => {
       >
         Toggle dropdown
       </button>
-      {showDropDown ? (
+      {/* {showDropDown ? (
         <Dropdown
+        label='Select a color'
           options={options}
           selected={selected}
           onSelectedChange={setSelected}
         />
-      ) : null}
+      ) : null} */}
     </div>
   );
 };
