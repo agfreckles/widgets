@@ -12,7 +12,6 @@ const options = [
 const Translate = () => {
   const [language, setLanguage] = useState(options[0]);
   const [text, setText] = useState("");
-  console.log(text);
   return (
     <div>
       <div className="ui form ">

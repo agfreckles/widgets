@@ -4,6 +4,8 @@ import Search from "./components/Search";
 import Dropdown from "./components/Dropdown";
 import Translate from "./components/Translate";
 import axios from "axios";
+import Route from "./components/Route";
+import Header from "./components/Header";
 
 const items = [
   {
@@ -37,27 +39,55 @@ const App = () => {
   // const renderedUsers = users.map((user) => {
   //   return <li key={user.id}>{user.name}</li>;
   // });
+  // const show = () => {
+  //   const currentPath = window.location.pathname;
+  //   if (currentPath === "/") {
+  //     return <Accordion items={items} />;
+  //   } else if (currentPath === "/translate") {
+  //     return <Translate />;
+  //   } else if (currentPath === "/search") {
+  //     return <Search />;
+  //   } else {
+  //     return (
+  //       <div>
+  //         <button
+  //           className="ui button"
+  //           onClick={() => setShowDropDown(!showDropDown)}
+  //         >
+  //           Toggle dropdown
+  //         </button>
+  //         {showDropDown ? (
+  //           <Dropdown
+  //             label="Select a color"
+  //             options={options}
+  //             selected={selected}
+  //             onSelectedChange={setSelected}
+  //           />
+  //         ) : null}
+  //       </div>
+  //     );
+  //   }
+  // };
   return (
     <div className="ui container">
-      <br />
-      <Translate />
-      <br />
-      {/* <Accordion items={items} /> */}
-      {/* <Search /> */}
-      <button
-        className="ui button"
-        onClick={() => setShowDropDown(!showDropDown)}
-      >
-        Toggle dropdown
-      </button>
-      {/* {showDropDown ? (
+      <Header/>
+      <Route path="/">
+        <Accordion items={items} />
+      </Route>
+      <Route path="/translate">
+        <Translate />
+      </Route>
+      <Route path="/search">
+        <Search />
+      </Route>
+      <Route path="/dropdown">
         <Dropdown
-        label='Select a color'
+          label="Select a color"
           options={options}
           selected={selected}
           onSelectedChange={setSelected}
         />
-      ) : null} */}
+      </Route>
     </div>
   );
 };
